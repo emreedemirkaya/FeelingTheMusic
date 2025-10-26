@@ -1,0 +1,15 @@
+/* En alta ekleyin */
+.nav-link-button {
+  background-color: transparent;
+  border: none;
+  color: #fff;
+  font-size: 1.2rem;
+  font-family: inherit;
+  cursor: pointer;
+  padding: 0;
+  display: inline;
+}
+
+.nav-link-button:hover {
+  color: #17a2b8;
+}
