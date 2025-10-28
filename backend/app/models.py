@@ -11,6 +11,7 @@ class User(db.Model):
     google_id = db.Column(db.String(120), unique=True, index=True, nullable=True)
 
     mood_history = db.relationship('MoodHistory', backref='user', lazy='dynamic')
+    music_preference = db.Column(db.String(20), nullable=False, default='mixed')
 
     def __repr__(self):
         return f'<User {self.username}>'

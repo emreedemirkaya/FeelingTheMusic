@@ -1,8 +1,8 @@
-"""Initial migration - User and MoodHistory tables
+"""Initial database build with all models
 
-Revision ID: b844d0c07417
+Revision ID: c27dad56b830
 Revises: 
-Create Date: 2025-10-26 16:22:04.335557
+Create Date: 2025-10-28 15:52:44.564186
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'b844d0c07417'
+revision = 'c27dad56b830'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -24,6 +24,7 @@ def upgrade():
     sa.Column('email', sa.String(length=120), nullable=False),
     sa.Column('password_hash', sa.String(length=256), nullable=True),
     sa.Column('google_id', sa.String(length=120), nullable=True),
+    sa.Column('music_preference', sa.String(length=20), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
     with op.batch_alter_table('user', schema=None) as batch_op:
