@@ -10,9 +10,7 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     if (token) {
-      // Token varsa, tüm API isteklerine bu token'ı ekle
       api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-      // Şimdilik token'ın varlığını "giriş yapıldı" olarak kabul ediyoruz
       setUser({ token: token });
     }
     setLoading(false);
@@ -40,7 +38,6 @@ export const AuthProvider = ({ children }) => {
     logout,
   };
 
-  // loading bitene kadar alt bileşenleri render etme
   return (
     <AuthContext.Provider value={authContextValue}>
       {!loading && children}
@@ -48,7 +45,6 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
-// Kendi hook'umuzu yapıyoruz
 export const useAuth = () => {
   return useContext(AuthContext);
 };

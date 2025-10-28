@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext'; // YENİ
+import { useAuth } from '../context/AuthContext';
 import './Navbar.css';
 
 function Navbar() {
-  const { user, logout } = useAuth(); // YENİ
+  const { user, logout } = useAuth(); 
 
   return (
     <nav className="navbar">
@@ -15,7 +15,6 @@ function Navbar() {
         </li>
 
         {user ? (
-          // Kullanıcı giriş yapmışsa
           <>
             <li className="nav-item">
               <Link to="/quiz" className="nav-link">Duygu Testi</Link>

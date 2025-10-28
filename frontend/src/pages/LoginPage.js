@@ -11,19 +11,12 @@ function LoginPage() {
   const handleSuccess = async (credentialResponse) => {
     console.log("Google Başarılı:", credentialResponse);
 
-    // Bu Google token'ını backend'imize gönderip doğrulayacağız
     try {
       const response = await api.post('/api/auth/google/verify', {
         credential: credentialResponse.credential,
       });
-
-      // Backend'den gelen bizim KENDİ JWT token'ımız
       const jwtToken = response.data.access_token;
-
-      // Giriş işlemini global state'e işle
       login(jwtToken);
-
-      // Kullanıcıyı ana sayfaya yönlendir
       navigate('/');
 
     } catch (error) {
@@ -42,7 +35,7 @@ function LoginPage() {
       <GoogleLogin
         onSuccess={handleSuccess}
         onError={handleError}
-        useOneTap // Ekranın köşesinde "Şu hesapla giriş yap" popup'ı da gösterir
+        useOneTap 
       />
     </div>
   );
