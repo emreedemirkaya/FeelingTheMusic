@@ -1,14 +1,110 @@
-.nav-link-button {
-  background-color: transparent;
-  border: none;
-  color: #fff;
-  font-size: 1.2rem;
-  font-family: inherit;
-  cursor: pointer;
-  padding: 0;
-  display: inline;
+.site-header {
+  background-color: #ffffff;
+  padding: 0 2rem;
+  border-bottom: 1px solid #e7e7e7;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  height: 80px;
+  display: flex;
+  align-items: center;
 }
 
-.nav-link-button:hover {
-  color: #17a2b8;
+.header-container {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+
+.site-logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  gap: 0.8rem;
+}
+
+.logo-image {
+  height: 60px;
+  width: auto;
+  display: block;
+}
+
+.logo-text {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.main-navigation {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.main-navigation ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 1.8rem;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: #555;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  padding: 0.5rem 0;
+  position: relative;
+  transition: color 0.2s ease;
+  white-space: nowrap;
+}
+
+.nav-link:hover {
+  color: #007bff;
+}
+
+.nav-link.active {
+  color: #007bff;
+  font-weight: 600;
+}
+.login-button, .logout-button {
+  padding: 0.7rem 1.4rem;
+  border-radius: 6px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  font-size: 0.95rem;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+
+.login-button {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+.login-button:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+
+.logout-button {
+  background-color: transparent;
+  color: #dc3545;
+  border-color: #dc3545;
+}
+
+.logout-button:hover {
+  background-color: #dc3545;
+  color: white;
 }
