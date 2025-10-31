@@ -1,61 +1,121 @@
-// frontend/src/pages/LoginPage.js (Yeniden Tasarlandı)
-
-import React from 'react';
+import React, { useState } from 'react';
 import { GoogleLogin } from '@react-oauth/google';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import api from '../services/api';
-import './LoginPage.css'; // Yeni stil dosyamızı import ediyoruz
+import './LoginPage.css'; 
 
 function LoginPage() {
   const { login } = useAuth();
   const navigate = useNavigate();
 
-  const handleSuccess = async (credentialResponse) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const handleLocalLogin = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+
+    try {
+      const response = await api.post('/api/auth/login', {
+        email: email,
+        password: password,
+      });
+      
+      const jwtToken = response.data.access_token;
+      login(jwtToken);
+      navigate('/');
+
+    } catch (err) {
+      setLoading(false);
+      if (err.response && err.response.data && err.response.data.error) {
+        setError(err.response.data.error);
+      } else {
+        setError('Giriş sırasında bilinmeyen bir hata oluştu.');
+      }
+      console.error('Yerel giriş hatası:', err);
+    }
+  };
+
+  const handleGoogleSuccess = async (credentialResponse) => {
     try {
       const response = await api.post('/api/auth/google/verify', {
         credential: credentialResponse.credential,
       });
       const jwtToken = response.data.access_token;
       login(jwtToken);
-      navigate('/'); // Giriş başarılıysa ana sayfaya yönlendir
+      navigate('/');
     } catch (error) {
       console.error('Google giriş doğrulaması hatası:', error);
-      // Kullanıcıya bir hata mesajı gösterebiliriz
-      alert('Google ile giriş yapılırken bir hata oluştu. Lütfen tekrar deneyin.');
+      alert('Google ile giriş yapılırken bir hata oluştu.');
     }
   };
 
-  const handleError = () => {
+  const handleGoogleError = () => {
     console.error('Google Login Failed');
     alert('Google ile giriş başarısız oldu.');
   };
 
   return (
-    <div className="login-page-container"> {/* Sayfayı ortalamak için dış kapsayıcı */}
-      <div className="login-card"> {/* İçerik kartı */}
+    <div className="login-page-container">
+      <div className="login-card">
+        
         <h2>Giriş Yap</h2>
         <p className="login-description">
-          Devam etmek ve duygu analizine başlamak için Google hesabınızla giriş yapın.
+          Hesabınıza giriş yapın veya Google ile devam edin.
         </p>
-        
+
+        <form onSubmit={handleLocalLogin} className="local-login-form">
+          {error && <div className="error-message">{error}</div>}
+          
+          <div className="form-group">
+            <label htmlFor="email">E-posta Adresi</label>
+            <input
+              type="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          
+          <div className="form-group">
+            <label htmlFor="password">Şifre</label>
+            <input
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          
+          <button type="submit" className="login-button-local" disabled={loading}>
+            {loading ? 'Giriş Yapılıyor...' : 'Giriş Yap'}
+          </button>
+        </form>
+
+        {/* AYIRICI (OR) */}
+        <div className="divider">
+          <span>VEYA</span>
+        </div>
+
         {/* Google Login Butonu */}
         <div className="google-login-button-container">
           <GoogleLogin
-            onSuccess={handleSuccess}
-            onError={handleError}
-            useOneTap // Ekranın köşesinde popup da gösterir (isteğe bağlı)
-            theme="filled_blue" // Buton temasını ayarla (filled_black, outline)
-            size="large" // Buton boyutunu ayarla (medium, small)
-            shape="rectangular" // Buton şekli (pill, circle, square)
+            onSuccess={handleGoogleSuccess}
+            onError={handleGoogleError}
+            useOneTap
+            theme="filled_blue"
+            size="large"
+            shape="rectangular"
           />
         </div>
-
-        {/* İsteğe bağlı: Alternatif giriş yöntemleri veya notlar buraya eklenebilir */}
-        {/* <div className="login-alternatives">
-          <p>Veya</p>
-          <button>E-posta ile Giriş Yap (Henüz Aktif Değil)</button>
-        </div> */}
+        <div className="register-link">
+          <p>Hesabınız yok mu? <Link to="/register">Hemen Kayıt Ol</Link></p>
+        </div>
       </div>
     </div>
   );
