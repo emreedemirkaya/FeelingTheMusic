@@ -25,7 +25,7 @@
 <img width="1470" height="956" alt="14" src="https://github.com/user-attachments/assets/7e04371c-356b-4622-ac9f-1c683a50d3b8" />
 <img width="1470" height="956" alt="15" src="https://github.com/user-attachments/assets/58d215b6-be5c-4d37-a5ce-f1ebae1c42ea" />
 <img width="1470" height="956" alt="16" src="https://github.com/user-attachments/assets/7ea97d44-9b11-40dc-9ba2-552bd13b6276" />
-<img width="1470" height="956" alt="16" src="https://github.com/user-attachments/assets/9220b5a3-7680-4a9b-b023-bd3898512081" />
+<img width="1470" height="956" alt="17" src="https://github.com/user-attachments/assets/462e41ea-3f00-4ef4-ac6e-2111a0942003" />
 
 
 ---
@@ -152,3 +152,4 @@ Bu projeyi yerel makinenizde çalıştırmak için aşağıdaki adımları izley
     npm start
     ```
     *(Uygulama `http://localhost:3000` adresinde açılacaktır.)*
+
